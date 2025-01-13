@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/v1")
+@RequestMapping("/auth")
 @RestController
-public class IndexController {
+public class TestAuthController {
 
     @GetMapping("/index")
     public String index() {
