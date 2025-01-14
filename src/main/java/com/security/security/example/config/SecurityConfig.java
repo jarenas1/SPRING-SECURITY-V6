@@ -43,7 +43,7 @@ public class SecurityConfig {
 //                 .build();
 //    }
 
-//FILTRO DE SEGURIDAD POR MEDIO DE ANOTACIONES, RECORDAR QUE LOS CONTROLADORES DEBEN TENER @PreAuthorize("denyAll()")
+//FILTRO DE SEGURIDAD POR MEDIO DE ANOTACIONES, RECORDAR QUE LOS CONTROLADORES DEBEN TENER @PreAuthorize("denyAll()") y cada endpoint su anotacion
 
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
