@@ -36,7 +36,7 @@ public class UserDetailService implements UserDetailsService {
         //RETORNAMOS UN User de Security
         return new User(userEntity.getUsername(),
                 userEntity.getPassword(),
-                userEntity.getEnabled(),
+                userEntity.isEnabled(),
                 userEntity.isAccountNonExpired(),
                 userEntity.isCredentialsNonExpired(),
                 userEntity.isAccountNonLocked(),

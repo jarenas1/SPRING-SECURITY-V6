@@ -26,4 +26,16 @@ public class TestAuthController {
     public String juan() {
         return "Hello World wo security";
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/index4")
+    public String juan1() {
+        return "Hello World ADMIN ROLE";
+    }
+
+    @PreAuthorize("hasAuthority('REFACTOR')")
+    @GetMapping("/index5")
+    public String juan2() {
+        return "Hello World ADMIN ROLE";
+    }
 }

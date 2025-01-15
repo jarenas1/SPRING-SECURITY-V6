@@ -1,5 +1,6 @@
 package com.security.security.example.config;
 
+import com.security.security.example.services.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -61,10 +63,10 @@ public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Excepti
     }
 
     @Bean //Creamos provedor de auntenticacion junto con sus 2 componentes
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailService userDetailService) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder()); //hashea la contraseña y la compara con la de la database
-        authenticationProvider.setUserDetailsService(null); //tRAE EL USUARIO DE LA DATABASE
+        authenticationProvider.setUserDetailsService(userDetailService); //tRAE EL USUARIO DE LA DATABASE
         return authenticationProvider;
     }
 
@@ -72,7 +74,8 @@ public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Excepti
 
 
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance(); //SOLO EJEMPLO, NO HASHEA CONTRASEÑAS!!!
+        return new BCryptPasswordEncoder() {
+        };//HASHEADOR DE CONTRASEÑAS, TENER EN CUENTA QUE DEBEMOS TAMBIEN IMPLEMENTAR LA ENCRIPTACION AL CREAR UN USUARIO
     }
 
 }
