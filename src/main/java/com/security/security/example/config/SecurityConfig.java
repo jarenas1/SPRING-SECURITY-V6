@@ -64,21 +64,12 @@ public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Excepti
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder()); //hashea la contraseña y la compara con la de la database
-        authenticationProvider.setUserDetailsService(userDetailsService()); //tRAE EL USUARIO DE LA DATABASE
+        authenticationProvider.setUserDetailsService(null); //tRAE EL USUARIO DE LA DATABASE
         return authenticationProvider;
     }
 
     //DEBE ESTAR CONECTADO A UNA DB, Al devolver el usuario de la data base debe castearse a tipo UserDetails
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //PODEMOS TAMBIEN RETORNAR VARIOS UUSARIOS CON List<UserDetails>
-        UserDetails userDetails = User.withUsername("juan") //User es el user de spring security
-                .password("1234")
-                .roles("ADMIN")
-                .authorities("READ","CREATE")
-                .build();
-        return new InMemoryUserDetailsManager(userDetails);
-    }
+
 
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance(); //SOLO EJEMPLO, NO HASHEA CONTRASEÑAS!!!

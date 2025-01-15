@@ -25,19 +25,19 @@ public class UserEntity {
 
     private String password;
 
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @Column(name = "account_non_expired")
-    private boolean accountNonExpired;
+    private boolean accountNonExpired = true;
 
     @Column(name = "account_non_locked")
-    private boolean accountNonLocked;
+    private boolean accountNonLocked = true;
 
     @Column(name = "credentials_non_expired")
-    private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired = true;
 
     //SE USA SET, YA QUE LIST PERMITE REPETIR VALORES
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
